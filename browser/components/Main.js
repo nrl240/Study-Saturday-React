@@ -4,6 +4,9 @@ import axios from 'axios'
 import StudentList from './StudentList'
 import SingleStudent from './SingleStudent'
 
+import StudentList from './StudentList.js';
+import SingleStudent from './SingleStudent.js';
+
 export default class Main extends Component {
   constructor(props) {
     super(props)
