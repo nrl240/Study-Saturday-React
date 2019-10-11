@@ -1,26 +1,30 @@
-import React from 'react';
+import React from 'react'
 
 const StudentList = (props) => {
-    console.log("p", props)
-    return (
+
+  return (
+    <div>
+      <h1>Students</h1>
+      <table>
         <tbody>
-        {
-            props.students 
-            .map(student =>
-                (
-                    <tr key={student.id}>
-                        <td>
-                            {student.fullName}
-                        </td>
-                        <td onClick= {() => props.selectStudent(student)}>
-                            Details
-                        </td>
-                    </tr>
-                )
-            )
-        }
+          <tr>
+            <th>Name</th>
+            <th>Tests</th>
+          </tr>
+          {
+            props.students.map(student => {
+              return (
+                <tr key={student.id}>
+                  <td>{student.fullName}</td>
+                  <td onClick={() => props.selectStudent(student)}>Details</td>
+                </tr>
+              );
+            })
+          }
         </tbody>
-    )
+      </table>
+    </div>
+  )
 }
 
 export default StudentList
