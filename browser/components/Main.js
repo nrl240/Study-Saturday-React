@@ -1,47 +1,52 @@
-import React, { Component } from 'react';
-import axios from 'axios';
+import React, { Component } from 'react'
+import axios from 'axios'
+
+import StudentList from './StudentList'
+import SingleStudent from './SingleStudent'
 
 export default class Main extends Component {
   constructor(props) {
-    super(props);
+    super(props)
     this.state = {
       students: [],
-    };
+      selectedStudent: {}
+    }
+
+    this.selectStudent = this.selectStudent.bind(this)
   }
 
   componentDidMount() {
-    this.getStudents();
+    this.getStudents()
   }
 
   async getStudents() {
-    console.log('fetching');
     try {
-      const { data } = await axios.get('/student');
-      this.setState({ students: data });
+      const { data } = await axios.get('/student')
+      this.setState({ students: data })
     } catch (err) {
-      console.error(err);
+      console.error(err)
     }
+  }
+
+  selectStudent(student) {
+    return this.setState({
+      selectedStudent: student
+    })
   }
 
   render() {
     return (
       <div>
-        <h1>Students</h1>
-        <table>
-          <tbody>
-            <tr>
-              <th>Name</th>
-            </tr>
-            {this.state.students.map(student => {
-              return (
-                <tr key={student.id}>
-                  <td>{student.fullName}</td>
-                </tr>
-              );
-            })}
-          </tbody>
-        </table>
+        <StudentList
+          students={this.state.students}
+          selectStudent={this.selectStudent}
+        />
+        {
+          this.state.selectedStudent.id
+          ? <SingleStudent student={this.state.selectedStudent} />
+          : null
+        }
       </div>
-    );
+    )
   }
 }
